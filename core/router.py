@@ -1,53 +1,55 @@
 """
-Router da aplicação.
-
-Responsável pelo gerenciamento das telas utilizando
-ScreenManager.
-
-Todas as telas serão registradas aqui.
+Gerenciador de navegação da aplicação.
 """
 
 from kivy.uix.screenmanager import FadeTransition
+from kivy.uix.screenmanager import Screen
 from kivy.uix.screenmanager import ScreenManager
 
 
 class AppRouter:
     """
-    Gerencia a navegação da aplicação.
+    Responsável pela navegação entre telas.
     """
 
-    def __init__(self):
-        self.manager = ScreenManager(
+    def __init__(self) -> None:
+
+        self._manager = ScreenManager(
             transition=FadeTransition(duration=0.20)
         )
 
     @property
-    def screen_manager(self):
+    def manager(self) -> ScreenManager:
         """
-        Retorna o ScreenManager principal.
+        Retorna o ScreenManager.
         """
-        return self.manager
 
-    def register(self, screen):
+        return self._manager
+
+    def register(self, screen: Screen) -> None:
         """
         Registra uma tela.
 
         Args:
-            screen: Instância de Screen.
+            screen: Instância da tela.
         """
-        self.manager.add_widget(screen)
 
-    def navigate(self, screen_name: str):
+        self._manager.add_widget(screen)
+
+    def navigate(self, screen_name: str) -> None:
         """
         Navega para uma tela.
 
         Args:
             screen_name: Nome da tela.
         """
-        self.manager.current = screen_name
 
-    def current(self):
+        self._manager.current = screen_name
+
+    @property
+    def current(self) -> str:
         """
-        Retorna a tela atual.
+        Nome da tela atual.
         """
-        return self.manager.current
+
+        return self._manager.current
