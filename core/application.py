@@ -6,12 +6,14 @@ Responsável por:
 - Configurar o tema
 - Inicializar o container
 - Inicializar o Router
-- Carregar as telas
+- Gerenciar o ciclo de vida
 """
 
 from kivymd.app import MDApp
 
 from core.dependency_container import DependencyContainer
+from core.lifecycle import ApplicationLifecycle
+from core.router import AppRouter
 
 
 class AuthApplication(MDApp):
@@ -24,23 +26,30 @@ class AuthApplication(MDApp):
 
         self.container = DependencyContainer()
 
-        self.router = None
+        self.router = AppRouter()
+
+        self.lifecycle = ApplicationLifecycle()
 
     def build(self):
         """
-        Método chamado automaticamente pelo Kivy.
-
-        Nesta primeira etapa apenas retorna um Widget vazio.
-
-        O Router será implementado no próximo bloco.
+        Inicializa a aplicação.
         """
 
         self.title = "Auth App"
 
         self.theme_cls.theme_style = "Dark"
-
         self.theme_cls.primary_palette = "Blue"
 
-        from kivy.uix.widget import Widget
+        return self.router.screen_manager
 
-        return Widget()
+    def on_start(self):
+        self.lifecycle.on_start()
+
+    def on_pause(self):
+        return self.lifecycle.on_pause()
+
+    def on_resume(self):
+        self.lifecycle.on_resume()
+
+    def on_stop(self):
+        self.lifecycle.on_stop()
