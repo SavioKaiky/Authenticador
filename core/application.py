@@ -1,12 +1,5 @@
 """
 Classe principal da aplicação.
-
-Responsável por:
-
-- Configurar o tema
-- Inicializar o container
-- Inicializar o Router
-- Gerenciar o ciclo de vida
 """
 
 from kivymd.app import MDApp
@@ -15,11 +8,11 @@ from core.dependency_container import DependencyContainer
 from core.lifecycle import ApplicationLifecycle
 from core.router import AppRouter
 
+from ui.theme import ThemeManager
+from ui.screens.splash_screen import SplashScreen
+
 
 class AuthApplication(MDApp):
-    """
-    Classe principal do aplicativo.
-    """
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -31,14 +24,14 @@ class AuthApplication(MDApp):
         self.lifecycle = ApplicationLifecycle()
 
     def build(self):
-        """
-        Inicializa a aplicação.
-        """
 
         self.title = "Auth App"
 
-        self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "Blue"
+        ThemeManager.configure(self)
+
+        self.router.register(
+            SplashScreen()
+        )
 
         return self.router.screen_manager
 
