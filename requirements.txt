@@ -1,0 +1,6 @@
+kivy==2.3.1
+kivymd @ https://github.com/kivymd/KivyMD/archive/master.zip
+SQLAlchemy==2.0.41
+pyotp==2.9.0
+argon2-cffi==25.1.0
+cryptography>=45.0.0
