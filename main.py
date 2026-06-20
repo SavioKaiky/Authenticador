@@ -1,15 +1,17 @@
 """
 Ponto de entrada da aplicação.
 
-Este arquivo deve permanecer o mais simples possível.
-Toda a lógica de inicialização pertence ao módulo core.
+Este módulo deve permanecer extremamente simples.
+Toda a lógica de inicialização pertence à classe AuthApplication.
 """
 
 from core.application import AuthApplication
 
 
 def main() -> None:
-    """Inicializa e executa a aplicação."""
+    """
+    Inicializa a aplicação.
+    """
     AuthApplication().run()
 
 
