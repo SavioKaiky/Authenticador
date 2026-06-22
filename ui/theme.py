@@ -1,30 +1,29 @@
 """
-Configuração global do tema da aplicação.
+Gerenciamento do tema da aplicação.
 """
 
 from kivymd.app import MDApp
 
+from core.settings import (
+    DEFAULT_THEME,
+    PRIMARY_PALETTE,
+)
+
 
 class ThemeManager:
     """
-    Responsável pela configuração visual da aplicação.
+    Configura o tema global da aplicação.
     """
 
     @staticmethod
     def configure(app: MDApp) -> None:
         """
-        Configura o tema global.
+        Aplica o tema da aplicação.
 
         Args:
             app: Instância do MDApp.
         """
 
-        app.theme_cls.theme_style = "Dark"
+        app.theme_cls.theme_style = DEFAULT_THEME
 
-        app.theme_cls.primary_palette = "Blue"
-
-        app.theme_cls.primary_hue = "500"
-
-        app.theme_cls.accent_palette = "Blue"
-
-        app.theme_cls.material_style = "M3"
+        app.theme_cls.primary_palette = PRIMARY_PALETTE

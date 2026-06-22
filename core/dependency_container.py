@@ -1,48 +1,79 @@
 """
 Container de Injeção de Dependências.
 
-Centraliza a criação e o acesso aos objetos compartilhados
-da aplicação.
+Responsável por registrar e resolver as dependências da aplicação.
 
-Nesta primeira fase ele possui apenas a infraestrutura básica.
+Esta implementação já suporta:
 
-Novos serviços serão registrados nas próximas fases.
+- Singleton
+- Factory
+
+Preparada para futuras expansões.
 """
+
+from typing import Any, Callable
 
 
 class DependencyContainer:
     """
-    Container responsável por armazenar
-    instâncias compartilhadas.
+    Container responsável por gerenciar as dependências
+    da aplicação.
     """
 
-    def __init__(self):
-        self._services = {}
+    def __init__(self) -> None:
+        self._singletons: dict[str, Any] = {}
+        self._factories: dict[str, Callable[[], Any]] = {}
 
-    def register(self, name: str, instance) -> None:
+    def register_singleton(self, key: str, instance: Any) -> None:
         """
-        Registra uma instância.
+        Registra uma instância singleton.
 
         Args:
-            name: Nome do serviço.
-            instance: Objeto registrado.
+            key: Nome da dependência.
+            instance: Instância a ser registrada.
         """
-        self._services[name] = instance
+        self._singletons[key] = instance
 
-    def resolve(self, name: str):
+    def register_factory(
+        self,
+        key: str,
+        factory: Callable[[], Any],
+    ) -> None:
         """
-        Recupera um serviço registrado.
+        Registra uma fábrica.
 
         Args:
-            name: Nome do serviço.
+            key: Nome da dependência.
+            factory: Função responsável por criar a instância.
+        """
+        self._factories[key] = factory
+
+    def resolve(self, key: str) -> Any:
+        """
+        Obtém uma dependência registrada.
+
+        Args:
+            key: Nome da dependência.
 
         Returns:
-            Instância registrada.
+            Instância solicitada.
+
+        Raises:
+            KeyError: Caso a dependência não exista.
         """
-        return self._services.get(name)
+
+        if key in self._singletons:
+            return self._singletons[key]
+
+        if key in self._factories:
+            return self._factories[key]()
+
+        raise KeyError(f"Dependência '{key}' não encontrada.")
 
     def clear(self) -> None:
         """
-        Remove todos os serviços registrados.
+        Remove todas as dependências registradas.
         """
-        self._services.clear()
+
+        self._singletons.clear()
+        self._factories.clear()

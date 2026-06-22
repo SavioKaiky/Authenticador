@@ -1,39 +1,42 @@
 """
 Gerenciamento do ciclo de vida da aplicação.
-
-Centraliza eventos de inicialização e encerramento.
 """
+
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class ApplicationLifecycle:
     """
-    Responsável pelos eventos da aplicação.
+    Centraliza os eventos do ciclo de vida da aplicação.
     """
 
-    def on_start(self):
+    def on_start(self) -> None:
         """
-        Executado quando a aplicação inicia.
+        Executado quando a aplicação é iniciada.
         """
-        print(">> Auth App iniciado.")
+        logger.info("Aplicação iniciada.")
 
-    def on_pause(self):
+    def on_pause(self) -> bool:
         """
-        Executado quando o aplicativo vai para segundo plano.
+        Executado quando a aplicação vai para segundo plano.
 
         Returns:
-            bool
+            True para permitir a pausa.
         """
-        print(">> Aplicação pausada.")
+        logger.info("Aplicação pausada.")
         return True
 
-    def on_resume(self):
+    def on_resume(self) -> None:
         """
-        Executado quando o aplicativo retorna.
+        Executado quando a aplicação retorna ao primeiro plano.
         """
-        print(">> Aplicação retomada.")
+        logger.info("Aplicação retomada.")
 
-    def on_stop(self):
+    def on_stop(self) -> None:
         """
-        Executado ao encerrar a aplicação.
+        Executado antes do encerramento da aplicação.
         """
-        print(">> Auth App encerrado.")
+        logger.info("Aplicação encerrada.")
