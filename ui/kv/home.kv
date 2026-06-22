@@ -1,0 +1,85 @@
+#:import dp kivy.metrics.dp
+
+<AccountCard>:
+    orientation: "vertical"
+    size_hint_y: None
+    height: "96dp"
+    padding: "16dp", "8dp"
+    spacing: "4dp"
+    md_bg_color: app.theme_cls.surfaceContainerHighColor
+    radius: [dp(12)]
+
+    MDLabel:
+        id: lbl_name
+        text: root.account_name
+        font_style: "Title"
+        role: "medium"
+        adaptive_height: True
+
+    MDBoxLayout:
+        adaptive_height: True
+        spacing: "8dp"
+
+        MDLabel:
+            id: lbl_code
+            text: root.totp_code
+            font_style: "Display"
+            role: "small"
+            bold: True
+            adaptive_height: True
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.primaryColor
+
+        MDWidget:
+
+        MDLabel:
+            id: lbl_timer
+            text: str(root.seconds) + "s"
+            font_style: "Label"
+            role: "large"
+            adaptive_height: True
+            halign: "right"
+            theme_text_color: "Custom"
+            text_color:
+                app.theme_cls.errorColor if root.seconds <= 5 else app.theme_cls.onSurfaceVariantColor
+
+    MDIconButton:
+        icon: "delete-outline"
+        pos_hint: {"center_y": .5}
+        on_release: root.on_delete()
+        theme_icon_color: "Custom"
+        icon_color: app.theme_cls.errorColor
+
+
+<HomeScreen>:
+    name: "home"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: app.theme_cls.backgroundColor
+
+        MDTopAppBar:
+            title: "Autenticador 2FA"
+            elevation: 0
+            md_bg_color: app.theme_cls.backgroundColor
+
+        MDScrollView:
+            id: scroll
+
+            MDBoxLayout:
+                id: accounts_container
+                orientation: "vertical"
+                spacing: "8dp"
+                padding: "16dp"
+                adaptive_height: True
+
+        MDWidget:
+            size_hint_y: None
+            height: "80dp"
+
+        MDFabButton:
+            icon: "plus"
+            style: "standard"
+            pos_hint: {"center_x": .5}
+            pos: self.parent.width - self.width - dp(16), dp(16)
+            on_release: root.go_to_add_account()
