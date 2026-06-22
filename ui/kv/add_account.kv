@@ -1,0 +1,64 @@
+<AddAccountScreen>:
+    name: "add_account"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: app.theme_cls.backgroundColor
+
+        MDTopAppBar:
+            type: "small"
+
+            MDTopAppBarLeadingButtonContainer:
+
+                MDActionTopAppBarButton:
+                    icon: "arrow-left"
+                    on_release: root.go_back()
+
+            MDTopAppBarTitle:
+                text: "Nova Conta"
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: "24dp"
+            spacing: "20dp"
+
+            MDLabel:
+                text: "Adicionar conta 2FA"
+                font_style: "Headline"
+                role: "small"
+                adaptive_height: True
+
+            MDTextField:
+                id: field_name
+                mode: "outlined"
+
+                MDTextFieldHintText:
+                    text: "Nome da conta (ex: GitHub)"
+
+            MDTextField:
+                id: field_secret
+                mode: "outlined"
+
+                MDTextFieldHintText:
+                    text: "Chave secreta (Base32)"
+
+                MDTextFieldHelperText:
+                    text: "Chave fornecida ao ativar 2FA no serviço"
+                    mode: "persistent"
+
+            MDLabel:
+                id: lbl_error
+                text: ""
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.errorColor
+                adaptive_height: True
+
+            MDButton:
+                style: "filled"
+                size_hint_x: 1
+                on_release: root.save_account()
+
+                MDButtonText:
+                    text: "Salvar"
+
+            MDWidget:

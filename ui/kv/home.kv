@@ -43,12 +43,12 @@
             text_color:
                 app.theme_cls.errorColor if root.seconds <= 5 else app.theme_cls.onSurfaceVariantColor
 
-    MDIconButton:
-        icon: "delete-outline"
-        pos_hint: {"center_y": .5}
-        on_release: root.on_delete()
-        theme_icon_color: "Custom"
-        icon_color: app.theme_cls.errorColor
+        MDIconButton:
+            icon: "delete-outline"
+            pos_hint: {"center_y": .5}
+            on_release: root.on_delete()
+            theme_icon_color: "Custom"
+            icon_color: app.theme_cls.errorColor
 
 
 <HomeScreen>:
@@ -59,9 +59,10 @@
         md_bg_color: app.theme_cls.backgroundColor
 
         MDTopAppBar:
-            title: "Autenticador 2FA"
-            elevation: 0
-            md_bg_color: app.theme_cls.backgroundColor
+            type: "small"
+
+            MDTopAppBarTitle:
+                text: "Autenticador 2FA"
 
         MDScrollView:
             id: scroll
@@ -80,6 +81,6 @@
         MDFabButton:
             icon: "plus"
             style: "standard"
-            pos_hint: {"center_x": .5}
+            pos_hint: {"right": 1, "y": 0}
             pos: self.parent.width - self.width - dp(16), dp(16)
             on_release: root.go_to_add_account()
