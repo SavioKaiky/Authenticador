@@ -1,36 +1,26 @@
 <SplashScreen>:
-
     name: "splash"
 
     MDBoxLayout:
-
         orientation: "vertical"
-
-        spacing: "20dp"
-
-        padding: "32dp"
-
-        md_bg_color:
-            app.theme_cls.backgroundColor
+        md_bg_color: app.theme_cls.backgroundColor
 
         MDWidget:
 
         MDLabel:
-
-            text: "AUTH APP"
-
+            text: "Auth App"
+            font_style: "Headline"
+            role: "large"
             halign: "center"
-
-            font_style: "Display"
-
-            bold: True
+            adaptive_height: True
 
         MDLabel:
-
-            text: "Autenticador Offline"
-
-            halign: "center"
-
+            text: "Autenticador 2FA"
+            font_style: "Body"
             role: "medium"
+            halign: "center"
+            adaptive_height: True
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.onSurfaceVariantColor
 
         MDWidget:
