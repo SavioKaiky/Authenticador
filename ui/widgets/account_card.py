@@ -6,6 +6,7 @@ from typing import Callable
 
 from kivy.metrics import dp
 from kivy.properties import NumericProperty, StringProperty
+from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.widget import Widget
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.button import MDButton, MDButtonText
@@ -16,6 +17,17 @@ from kivymd.uix.dialog import (
     MDDialogSupportingText,
 )
 from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText
+
+
+class CodeTouchArea(ButtonBehavior, MDBoxLayout):
+    """
+    Área tocável ao redor do código TOTP.
+
+    Combina ButtonBehavior com MDBoxLayout para tratar corretamente
+    eventos de toque dentro de ScrollView, sem problemas de
+    transformação de coordenadas.
+    """
+    pass
 
 
 class AccountCard(MDBoxLayout):
