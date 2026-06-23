@@ -46,6 +46,10 @@ class AuthService:
         """
         Valida se uma chave Base32 é utilizável.
 
+        O PyOTP aceita string vazia sem lançar exceção — por isso
+        verificamos explicitamente se a chave está vazia após a
+        normalização, antes de tentar gerar o código.
+
         Args:
             secret: Chave a validar.
 
@@ -54,6 +58,8 @@ class AuthService:
         """
         try:
             cleaned = secret.strip().upper().replace(" ", "")
+            if not cleaned:
+                return False
             pyotp.TOTP(cleaned).now()
             return True
         except Exception:

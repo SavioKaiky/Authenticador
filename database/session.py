@@ -5,7 +5,7 @@ Separado dos modelos de domínio para não misturar
 SQLAlchemy com lógica de negócio.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlalchemy import Integer, String, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
@@ -28,5 +28,7 @@ class AccountORM(Base):
     name: Mapped[str] = mapped_column(String(120), nullable=False)
     secret: Mapped[str] = mapped_column(String(256), nullable=False)
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.utcnow, nullable=False
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False,
     )
