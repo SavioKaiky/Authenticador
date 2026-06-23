@@ -29,6 +29,8 @@
             adaptive_height: True
             theme_text_color: "Custom"
             text_color: app.theme_cls.primaryColor
+            on_touch_down:
+                if self.collide_point(*args[1].pos): root.copy_code()
 
         MDWidget:
 

@@ -4,6 +4,7 @@ Widget visual de cartão de conta TOTP.
 
 from typing import Callable
 
+from kivy.metrics import dp
 from kivy.properties import NumericProperty, StringProperty
 from kivy.uix.widget import Widget
 from kivymd.uix.boxlayout import MDBoxLayout
@@ -14,13 +15,15 @@ from kivymd.uix.dialog import (
     MDDialogHeadlineText,
     MDDialogSupportingText,
 )
+from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText
 
 
 class AccountCard(MDBoxLayout):
     """
     Exibe o nome, o código TOTP e o contador regressivo de uma conta.
-    Ao tocar no ícone de lixeira, exibe um diálogo de confirmação
-    antes de disparar o callback de exclusão.
+
+    - Toque no código: copia para o clipboard e exibe snackbar de confirmação.
+    - Toque na lixeira: exibe diálogo de confirmação antes de remover.
     """
 
     account_name = StringProperty("")
@@ -37,6 +40,19 @@ class AccountCard(MDBoxLayout):
         self._account_id = account_id
         self._on_delete_callback = on_delete
         self._dialog = None
+
+    def copy_code(self) -> None:
+        """Copia o código TOTP atual para o clipboard e exibe feedback."""
+        from kivy.core.clipboard import Clipboard
+        Clipboard.copy(self.totp_code)
+        MDSnackbar(
+            MDSnackbarText(
+                text=f"Código copiado: {self.totp_code}",
+            ),
+            y=dp(24),
+            pos_hint={"center_x": 0.5},
+            size_hint_x=0.9,
+        ).open()
 
     def on_delete(self) -> None:
         """Exibe o diálogo de confirmação ao tocar na lixeira."""
