@@ -64,23 +64,56 @@
             MDTopAppBarTitle:
                 text: "Autenticador 2FA"
 
-        MDScrollView:
-            id: scroll
+        MDFloatLayout:
+
+            MDScrollView:
+                size_hint: 1, 1
+                pos_hint: {"top": 1}
+
+                MDBoxLayout:
+                    id: accounts_container
+                    orientation: "vertical"
+                    spacing: "8dp"
+                    padding: "16dp"
+                    adaptive_height: True
 
             MDBoxLayout:
-                id: accounts_container
+                id: empty_state
                 orientation: "vertical"
-                spacing: "8dp"
-                padding: "16dp"
-                adaptive_height: True
+                spacing: "16dp"
+                padding: "40dp"
+                opacity: 1
+                size_hint: 1, None
+                height: self.minimum_height
+                pos_hint: {"center_x": .5, "center_y": .5}
 
-        MDWidget:
-            size_hint_y: None
-            height: "80dp"
+                MDIcon:
+                    icon: "shield-lock-outline"
+                    halign: "center"
+                    font_size: "64sp"
+                    adaptive_height: True
+                    theme_text_color: "Custom"
+                    text_color: app.theme_cls.onSurfaceVariantColor
 
-        MDFabButton:
-            icon: "plus"
-            style: "standard"
-            pos_hint: {"right": 1, "y": 0}
-            pos: self.parent.width - self.width - dp(16), dp(16)
-            on_release: root.go_to_add_account()
+                MDLabel:
+                    text: "Nenhuma conta cadastrada"
+                    font_style: "Title"
+                    role: "large"
+                    halign: "center"
+                    adaptive_height: True
+
+                MDLabel:
+                    text: "Toque no botão + para adicionar\nsua primeira conta 2FA"
+                    font_style: "Body"
+                    role: "medium"
+                    halign: "center"
+                    adaptive_height: True
+                    theme_text_color: "Custom"
+                    text_color: app.theme_cls.onSurfaceVariantColor
+
+            MDFabButton:
+                icon: "plus"
+                style: "standard"
+                pos_hint: {"right": 1, "y": 0}
+                pos: self.parent.width - self.width - dp(16), dp(16)
+                on_release: root.go_to_add_account()

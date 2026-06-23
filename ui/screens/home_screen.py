@@ -14,6 +14,9 @@ class HomeScreen(BaseScreen):
     """
     Exibe a lista de contas cadastradas com seus códigos TOTP,
     atualizados automaticamente a cada segundo pelo HomeViewModel.
+
+    Quando não há contas, exibe um painel de estado vazio orientando
+    o usuário a adicionar a primeira conta.
     """
 
     def on_enter(self, *args) -> None:
@@ -36,9 +39,21 @@ class HomeScreen(BaseScreen):
         """
         Reconstrói os cartões de conta sempre que o ViewModel
         publica uma nova lista (a cada tick do timer).
+
+        Alterna entre o painel de estado vazio e a lista de contas
+        dependendo se há dados ou não.
         """
-        container = self.ids.accounts_container
-        container.clear_widgets()
+        accounts_container = self.ids.accounts_container
+        empty_state = self.ids.empty_state
+        accounts_container.clear_widgets()
+
+        if not accounts_data:
+            empty_state.opacity = 1
+            empty_state.disabled = False
+            return
+
+        empty_state.opacity = 0
+        empty_state.disabled = True
 
         for data in accounts_data:
             card = AccountCard(
@@ -47,7 +62,7 @@ class HomeScreen(BaseScreen):
             )
             card.account_name = data["name"]
             card.update(data["code"], data["seconds"])
-            container.add_widget(card)
+            accounts_container.add_widget(card)
 
     def _remove_account(self, account_id: int) -> None:
         """Remove a conta selecionada, delegando ao ViewModel."""
