@@ -25,7 +25,11 @@ class AccountService:
 
     def add_account(self, name: str, secret: str) -> Account:
         """
-        Valida e cadastra uma nova conta.
+        Valida, normaliza e cadastra uma nova conta.
+
+        A chave secreta é normalizada antes de persistir:
+        espaços removidos e letras convertidas para maiúsculas,
+        garantindo que o PyOTP sempre receba um Base32 limpo.
 
         Args:
             name: Nome da conta (ex: "GitHub").
@@ -41,8 +45,14 @@ class AccountService:
         if not name:
             raise ValueError("O nome da conta não pode ser vazio.")
 
+        secret = secret.strip().upper().replace(" ", "")
+        if not secret:
+            raise ValueError("A chave secreta não pode ser vazia.")
+
         if not self._auth.is_valid_secret(secret):
-            raise ValueError("Chave secreta inválida. Verifique se é uma chave Base32 válida.")
+            raise ValueError(
+                "Chave secreta inválida. Verifique se copiou corretamente."
+            )
 
         account = Account(name=name, secret=secret)
         return self._repository.save(account)
