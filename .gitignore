@@ -1,0 +1,46 @@
+# Virtual Environment
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+# *.pyc
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# IDEs
+.vscode/
+.idea/
+.vs/
+
+# Kivy
+.kivy/
+
+# SQLite
+*.db
+*.sqlite3
+*.sqlite
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Pytest
+.pytest_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+
+
