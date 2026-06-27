@@ -1,7 +1,7 @@
 [app]
 
 # Título exibido no celular
-title = AuthApp
+title = Verifyx
 
 # Nome do pacote (sem espaços, minúsculo)
 package.name = authapp
