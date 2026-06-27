@@ -1,40 +1,33 @@
 #:import dp kivy.metrics.dp
-
 <CodeTouchArea>:
     adaptive_height: True
     spacing: "8dp"
-
 <AccountCard>:
     orientation: "vertical"
     size_hint_y: None
-    height: "96dp"
-    padding: "16dp", "8dp"
-    spacing: "4dp"
+    adaptive_height: True
+    padding: "16dp", "12dp"
+    spacing: "6dp"
     md_bg_color: app.theme_cls.surfaceContainerHighColor
     radius: [dp(12)]
-
     MDLabel:
         id: lbl_name
         text: root.account_name
         font_style: "Title"
         role: "medium"
         adaptive_height: True
-
     CodeTouchArea:
         on_release: root.copy_code()
-
         MDLabel:
             id: lbl_code
             text: root.totp_code
-            font_style: "Display"
+            font_style: "Headline"
             role: "small"
             bold: True
             adaptive_height: True
             theme_text_color: "Custom"
             text_color: app.theme_cls.primaryColor
-
         MDWidget:
-
         MDLabel:
             id: lbl_timer
             text: str(root.seconds) + "s"
@@ -45,41 +38,31 @@
             theme_text_color: "Custom"
             text_color:
                 app.theme_cls.errorColor if root.seconds <= 5 else app.theme_cls.onSurfaceVariantColor
-
         MDIconButton:
             icon: "delete-outline"
             pos_hint: {"center_y": .5}
             on_release: root.on_delete()
             theme_icon_color: "Custom"
             icon_color: app.theme_cls.errorColor
-
-
 <HomeScreen>:
     name: "home"
-
     MDBoxLayout:
         orientation: "vertical"
         md_bg_color: app.theme_cls.backgroundColor
-
         MDTopAppBar:
             type: "small"
-
             MDTopAppBarTitle:
                 text: "Autenticador 2FA"
-
         MDFloatLayout:
-
             MDScrollView:
                 size_hint: 1, 1
                 pos_hint: {"top": 1}
-
                 MDBoxLayout:
                     id: accounts_container
                     orientation: "vertical"
                     spacing: "8dp"
                     padding: "16dp"
                     adaptive_height: True
-
             MDBoxLayout:
                 id: empty_state
                 orientation: "vertical"
@@ -89,7 +72,6 @@
                 size_hint: 1, None
                 height: self.minimum_height
                 pos_hint: {"center_x": .5, "center_y": .5}
-
                 MDIcon:
                     icon: "shield-lock-outline"
                     halign: "center"
@@ -97,14 +79,12 @@
                     adaptive_height: True
                     theme_text_color: "Custom"
                     text_color: app.theme_cls.onSurfaceVariantColor
-
                 MDLabel:
                     text: "Nenhuma conta cadastrada"
                     font_style: "Title"
                     role: "large"
                     halign: "center"
                     adaptive_height: True
-
                 MDLabel:
                     text: "Toque no botão + para adicionar\nsua primeira conta 2FA"
                     font_style: "Body"
@@ -113,7 +93,6 @@
                     adaptive_height: True
                     theme_text_color: "Custom"
                     text_color: app.theme_cls.onSurfaceVariantColor
-
             MDFabButton:
                 icon: "plus"
                 style: "standard"

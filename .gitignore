@@ -1,46 +1,15 @@
-# Virtual Environment
-.venv/
-venv/
-
-# Python
+.buildozer/
+bin/
+*.apk
+*.aab
+*.apks
+*.jks
 __pycache__/
-*.py[cod]
-*$py.class
-# *.pyc
-
-# Build
-build/
-dist/
-*.egg-info/
-
-# IDEs
-.vscode/
-.idea/
+*.pyc
+*.pyo
+.env
+.venv/
 .vs/
-
-# Kivy
-.kivy/
-
-# SQLite
-*.db
-*.sqlite3
-*.sqlite
-
-# Logs
-*.log
-
-# macOS
-.DS_Store
-
-# Windows
-Thumbs.db
-
-# Pytest
-.pytest_cache/
-
-# Coverage
 .coverage
-htmlcov/
-
-
-
+.pytest_cache/
+bundletool.jar
